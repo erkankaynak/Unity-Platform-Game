@@ -18,7 +18,6 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
 
-
         if (Input.GetKey(KeyCode.D))
         {
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -40,8 +39,8 @@ public class PlayerScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        isJump = false;
+        if (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("MovingPanel"))
+            isJump = false;
 
         if (collision.gameObject.CompareTag("MovingPanel"))
         {
@@ -49,6 +48,13 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Gold"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("MovingPanel"))
