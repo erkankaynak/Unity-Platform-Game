@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour
 {
     public float movementSpeed = 5f;
     public float jumpForce = 10f;
 
+    public Text textScore;
+
+    private int gold;
     private Rigidbody rb;
     private bool isJump;
     void Start()
@@ -52,6 +55,8 @@ public class PlayerScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Gold"))
         {
+            gold++;
+            textScore.text = "Golds:" + gold.ToString();
             Destroy(other.gameObject);
         }
     }
