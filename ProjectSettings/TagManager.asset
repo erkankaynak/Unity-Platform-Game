@@ -8,6 +8,7 @@ TagManager:
   - MovingPanel
   - Gold
   - Floor
+  - Enemy
   layers:
   - Default
   - TransparentFX

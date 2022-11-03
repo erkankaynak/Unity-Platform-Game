@@ -7,11 +7,15 @@ public class PlayerScript : MonoBehaviour
     public float movementSpeed = 5f;
     public float jumpForce = 10f;
 
+    public GameObject panelGameOver;
     public Text textScore;
 
     private int gold;
     private Rigidbody rb;
+
     private bool isJump;
+    private bool isGameOver;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -20,23 +24,26 @@ public class PlayerScript : MonoBehaviour
     
     void Update()
     {
-
-        if (Input.GetKey(KeyCode.D))
+        if (!isGameOver)
         {
-            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
-        }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-            transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
-        }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isJump)
-        {
-            rb.AddForce(Vector3.up * jumpForce);
-            isJump = true;
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && !isJump)
+            {
+                rb.AddForce(Vector3.up * jumpForce);
+                isJump = true;
+            }
         }
     }
 
@@ -48,6 +55,14 @@ public class PlayerScript : MonoBehaviour
         if (collision.gameObject.CompareTag("MovingPanel"))
         {
             transform.SetParent(collision.gameObject.transform, true);
+        }
+
+        if (collision.gameObject.CompareTag("Water") || collision.gameObject.CompareTag("Enemy"))
+        {
+            isGameOver = true;
+            
+            panelGameOver.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 
