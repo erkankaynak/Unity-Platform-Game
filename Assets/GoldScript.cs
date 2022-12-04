@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GoldScript : MonoBehaviour
 {
-    public float rotateSpeed = 30f;
+    private float rotateSpeed = 50f;
     // Start is called before the first frame update
     void Start()
     {

@@ -81,4 +81,5 @@ public class PlayerScript : MonoBehaviour
         {
             transform.SetParent(null, true);
         }
-    }}
+    }
+}

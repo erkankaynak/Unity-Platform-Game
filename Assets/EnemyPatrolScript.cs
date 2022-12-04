@@ -18,10 +18,12 @@ public class EnemyPatrolScript : MonoBehaviour
     void Update()
     {
         transform.LookAt(targetPoint);
-
-        if (targetPoint == endPoint.position && Vector3.Distance(transform.position, endPoint.position) < 2f) targetPoint = startPoint.position;
-        if (targetPoint == startPoint.position && Vector3.Distance(transform.position, startPoint.position) < 2f) targetPoint = endPoint.position;
-
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
+
+        if (Vector3.Distance(transform.position, targetPoint) < 2f)
+        {
+            targetPoint = targetPoint == startPoint.position ? endPoint.position : startPoint.position;
+        }
     }
 }
